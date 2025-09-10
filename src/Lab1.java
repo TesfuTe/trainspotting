@@ -3,7 +3,7 @@ import TSim.*;
 import java.util.concurrent.Semaphore;
 
 import static java.lang.Thread.sleep;
-
+//Test comment to see if I can make changes
 public class Lab1 {
 
     public Lab1(int speed1, int speed2) {

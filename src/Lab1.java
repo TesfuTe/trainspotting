@@ -317,7 +317,7 @@ public class Lab1 {
                         /// North Station
                         if (se.getXpos() == 13 && (se.getYpos() == 5 || se.getYpos() == 3) && direction && se.getStatus() == SensorEvent.ACTIVE) {
                             tsi.setSpeed(id, 0);
-                            sleep(2000);
+                            sleep(1000 + 20 * Math.abs(speed));
                             speed = -speed;
                             tsi.setSpeed(id, speed);
                             direction = !direction;
@@ -326,7 +326,7 @@ public class Lab1 {
                         /// South Station
                         if (se.getXpos() == 13 && (se.getYpos() == 11 || se.getYpos() == 13) && !direction && se.getStatus() == SensorEvent.ACTIVE) {
                             tsi.setSpeed(id, 0);
-                            sleep(2000);
+                            sleep(1000 + 20 * Math.abs(speed));
                             speed = -speed;
                             tsi.setSpeed(id, speed);
                             direction = !direction;

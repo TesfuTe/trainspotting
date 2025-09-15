@@ -3,7 +3,7 @@ import TSim.*;
 import java.util.concurrent.Semaphore;
 
 import static java.lang.Thread.sleep;
-//Test comment to see if I can make changes
+
 public class Lab1 {
 
     public Lab1(int speed1, int speed2) {
@@ -14,6 +14,7 @@ public class Lab1 {
             tsi.setSpeed(1, speed1);
             tsi.setSpeed(2, speed2);
             tsi.setSwitch(3, 11, TSimInterface.SWITCH_RIGHT);
+            tsi.setSwitch(17, 7, TSimInterface.SWITCH_RIGHT); // Set default to row 8 (RIGHT)
 
         } catch (CommandException e) {
             e.printStackTrace();    // or only e.getMessage() for the error
@@ -46,7 +47,7 @@ public class Lab1 {
             @Override
             public void run() {
                 try {
-                    while (!!!false) {
+                    while (true) {
                         SensorEvent se = tsi.getSensor(id);
 
                         // Lower T-path past crossing
@@ -73,7 +74,7 @@ public class Lab1 {
                                 tCrossingMerge.acquire();
                                 System.out.println("lowerTPathLock released! - " + lowerTPathLock.availablePermits());
                                 lowerTPathLock.release();
-                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_RIGHT);
+                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_RIGHT); // Default to row 8
                                 tsi.setSpeed(id, speed);
                             // to North
                             } else {
@@ -136,7 +137,7 @@ public class Lab1 {
                                 tCrossingMerge.acquire();
                                 System.out.println("upperTPath released! - " + upperTPath.availablePermits());
                                 upperTPath.release();
-                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_LEFT);
+                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_LEFT); // Switch to row 7 (non-default)
                                 tsi.setSpeed(id, speed);
                             // to North
                             } else {
@@ -149,13 +150,13 @@ public class Lab1 {
                         if (se.getXpos() == 19 && se.getYpos() == 8 && se.getStatus() == SensorEvent.ACTIVE && direction) {
                             // to South
                             tsi.setSpeed(id, 0);
-                            if (upperTPath.tryAcquire()) {
-                                System.out.println("upperTPath acquired! - " + upperTPath.availablePermits());
-                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_LEFT);
-                            } else {
+                            if (lowerTPathLock.tryAcquire()) {
                                 System.out.println("lowerTPathLock acquired! - " + lowerTPathLock.availablePermits());
-                                lowerTPathLock.acquire();
-                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_RIGHT);
+                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_RIGHT); // Default to row 8
+                            } else {
+                                System.out.println("upperTPath acquired! - " + upperTPath.availablePermits());
+                                upperTPath.acquire();
+                                tsi.setSwitch(17, 7, TSimInterface.SWITCH_LEFT); // Switch to row 7
                             }
                             tsi.setSpeed(id, speed);
                         }

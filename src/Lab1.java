@@ -17,7 +17,7 @@ public class Lab1 {
             tsi.setSwitch(17, 7, TSimInterface.SWITCH_RIGHT); // Set default to row 8 (RIGHT)
 
         } catch (CommandException e) {
-            e.printStackTrace();    // or only e.getMessage() for the error
+            e.printStackTrace();    
             System.exit(1);
         }
 
@@ -35,7 +35,7 @@ public class Lab1 {
 
             int id;
             int speed;
-            // True = north
+            // True = north, False = south
             boolean direction;
 
             public Train(int id, int speed, boolean dir) {
@@ -338,7 +338,8 @@ public class Lab1 {
                 }
             }
         }
-
+        // Create and start threads for the two trains with train ID, user-defined speed, 
+        // and direction: northbound (true), southbound (false).
         Thread train2 = new Thread(new Train(2, speed2, true));
         train2.start();
         Thread train1 = new Thread(new Train(1, speed1, false));

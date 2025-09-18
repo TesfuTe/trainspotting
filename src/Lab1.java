@@ -51,7 +51,7 @@ public class Lab1 {
                         SensorEvent se = tsi.getSensor(id);
 
                         // Lower T-path past crossing
-                        if (se.getXpos() == 6 && se.getYpos() == 6 && se.getStatus() == SensorEvent.ACTIVE) {
+                        if (se.getXpos() == 7 && se.getYpos() == 3 && se.getStatus() == SensorEvent.ACTIVE) {
                             // to South
                             if (!direction) {
                                 tsi.setSpeed(id, 0);
@@ -84,7 +84,7 @@ public class Lab1 {
                         }
 
                         // Upper T-path north crossing
-                        if (se.getXpos() == 8 && se.getYpos() == 6 && se.getStatus() == SensorEvent.ACTIVE) {
+                        if (se.getXpos() == 9 && se.getYpos() == 5 && se.getStatus() == SensorEvent.ACTIVE) {
                             // to South
                             if (!direction) {
                                 tsi.setSpeed(id, 0);
@@ -129,7 +129,7 @@ public class Lab1 {
                         }
 
                         // Upper T-path east T-crossing
-                        if (se.getXpos() == 16 && se.getYpos() == 8 && se.getStatus() == SensorEvent.ACTIVE) {
+                        if (se.getXpos() == 14 && se.getYpos() == 8 && se.getStatus() == SensorEvent.ACTIVE) {
                             // to South
                             if (!direction) {
                                 tsi.setSpeed(id, 0);
